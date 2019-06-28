@@ -7,7 +7,8 @@ export class LifeCycleMethods extends React.Component {
         this.height = 100;
         this.state = {
             derivedValue: "",
-            heightChangeCount: 0
+            heightChangeCount: 0,
+            currHeight: "100 px"
         }
     }
 
@@ -27,18 +28,21 @@ export class LifeCycleMethods extends React.Component {
         }
     }
 
-    // getSnapshotBeforeUpdate = (prevProps, prevState) => {
-    //     if(prevState.heightChangeCount !== this.state.heightChangeCount) {
-    //         return this.ref.;
-    //     }
-    //     return null;
-    // }
+    getSnapshotBeforeUpdate = (prevProps, prevState) => {
+        if(prevState.heightChangeCount !== this.state.heightChangeCount) {
+            return this.ref.current.offsetHeight;
+        }
+        return null;
+    }
 
-    // componentDidUpdate(prevProps,prevState,snapshot) {
-    //     if (snapshot !== null) {
-    //         this.height
-    //     }
-    // }
+    componentDidUpdate(prevProps,prevState,snapshot) {
+        if (snapshot !== null) {
+            this.ref.current.style.height = +snapshot * 2 + "px";
+            this.setState({
+                currHeight: `${this.ref.current.offsetHeight} px`
+            })
+        }
+    }
 
     render() {
         return(
@@ -46,6 +50,7 @@ export class LifeCycleMethods extends React.Component {
                 <p>The derived state value is : {this.state.derivedValue}</p>
                 <button type="button" onClick={this.handleClick}>Click Me</button>
                 <p>You have changed the height of DIV by: {this.state.heightChangeCount} times</p>
+                <p>The current height of the DIV now is {this.state.currHeight}</p>
                 <div ref={this.ref} style={{
                     width: '100px',
                     height: this.height,

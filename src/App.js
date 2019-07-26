@@ -1,5 +1,5 @@
 import React from 'react';
-import { LifeCycleMethods } from "./components/lifeCycleMethodsComponent";
+import { UseEffectHook } from "./components/useEffectHookComponent";
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,7 +19,7 @@ function App() {
         >
           Learn React
         </a>
-        <LifeCycleMethods data="Harnoor"></LifeCycleMethods>
+        <UseEffectHook></UseEffectHook>
       </header>
     </div>
   );
